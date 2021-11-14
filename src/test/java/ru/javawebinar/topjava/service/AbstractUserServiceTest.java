@@ -22,17 +22,10 @@ import java.util.List;
 import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.UserTestData.*;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-public class UserServiceTest {
+public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
-    private UserService service;
+    protected UserService service;
 
     @Autowired
     private CacheManager cacheManager;
@@ -48,8 +41,8 @@ public class UserServiceTest {
         int newId = created.id();
         User newUser = getNew();
         newUser.setId(newId);
-        USER_MATCHER.assertMatch(created, newUser);
-        USER_MATCHER.assertMatch(service.get(newId), newUser);
+        MATCHER.assertMatch(created, newUser);
+        MATCHER.assertMatch(service.get(newId), newUser);
     }
 
     @Test
@@ -72,7 +65,7 @@ public class UserServiceTest {
     @Test
     public void get() {
         User user = service.get(USER_ID);
-        USER_MATCHER.assertMatch(user, UserTestData.user);
+        MATCHER.assertMatch(user, UserTestData.user);
     }
 
     @Test
@@ -83,19 +76,19 @@ public class UserServiceTest {
     @Test
     public void getByEmail() {
         User user = service.getByEmail("admin@gmail.com");
-        USER_MATCHER.assertMatch(user, admin);
+        MATCHER.assertMatch(user, admin);
     }
 
     @Test
     public void update() {
         User updated = getUpdated();
         service.update(updated);
-        USER_MATCHER.assertMatch(service.get(USER_ID), getUpdated());
+        MATCHER.assertMatch(service.get(USER_ID), getUpdated());
     }
 
     @Test
     public void getAll() {
         List<User> all = service.getAll();
-        USER_MATCHER.assertMatch(all, admin, user);
+        MATCHER.assertMatch(all, admin, user);
     }
 }
