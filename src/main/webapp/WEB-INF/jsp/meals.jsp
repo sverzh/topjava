@@ -4,11 +4,9 @@
 <%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
-<head>
     <jsp:include page="fragments/headTag.jsp"/>
-</head>
-<jsp:include page="fragments/bodyHeader.jsp"/>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
     <h3><spring:message code="meal.title"/></h3>
     <hr/>

@@ -3,11 +3,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
-<head>
     <jsp:include page="fragments/headTag.jsp"/>
-</head>
-<jsp:include page="fragments/bodyHeader.jsp"/>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
     <h2><spring:message code="${meal.isNew() ? 'meal.add' : 'meal.edit'}"/></h2>
