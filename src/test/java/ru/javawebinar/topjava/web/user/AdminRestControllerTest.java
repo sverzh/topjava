@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.UserTestData.*;
+import static ru.javawebinar.topjava.UserTestData.WITH_MEALS_MATCHER;
 
 class AdminRestControllerTest extends AbstractControllerTest {
 
@@ -83,5 +84,15 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentJson(admin, user));
+    }
+
+    @Test
+    void getWithMeals() throws Exception {
+        assumeDataJpa();
+        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID + "/with-meals"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(WITH_MEALS_MATCHER.contentJson(admin));
     }
 }
