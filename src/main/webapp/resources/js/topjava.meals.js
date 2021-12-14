@@ -1,5 +1,6 @@
 const mealAjaxUrl = "profile/meals/";
 
+// https://stackoverflow.com/a/5064235/548473
 const ctx = {
     ajaxUrl: mealAjaxUrl,
     updateTable: function () {
@@ -7,13 +8,8 @@ const ctx = {
             type: "GET",
             url: mealAjaxUrl + "filter",
             data: $("#filter").serialize()
-        }).done(updateTableData);
+        }).done(updateTableByData);
     }
-}
-
-function clearFilter() {
-    $("#filter")[0].reset();
-    $.get("profile/meals/", updateTableData);
 }
 
 $(function () {
@@ -43,7 +39,7 @@ $(function () {
             "order": [
                 [
                     0,
-                    "asc"
+                    "desc"
                 ]
             ]
         })
